@@ -40,19 +40,26 @@
     position: fixed; inset: 0; background: var(--black);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     z-index: 9000;
-    padding: 20px;
     transition: opacity .8s ease, visibility .8s ease;
   }
   #preloader.hidden { opacity: 0; visibility: hidden; }
 
   .preloader-text {
     font-family: var(--font-display);
-    font-size: clamp(1.8rem, 6vw, 4.5rem); /* Adjusted for mobile */
+    font-size: clamp(2.5rem, 8vw, 4.5rem); /* Adjusted for 3 lines */
     letter-spacing: .12em;
     color: var(--white);
     text-align: center;
-    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
+  
+  .preloader-text div {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
   .preloader-text .char {
     display: inline-block;
     opacity: 0;
@@ -70,11 +77,9 @@
     background: linear-gradient(90deg, transparent, var(--gold), var(--red), transparent);
     margin-top: 24px;
     animation: lineExpand 1s ease forwards;
-    animation-delay: 2.2s;
+    animation-delay: 2.5s;
   }
-  @keyframes lineExpand { 
-    to { width: min(420px, 80vw); } /* Responsive line width */
-  }
+  @keyframes lineExpand { to { width: min(420px, 80vw); } }
 
   /* ── NAV ── */
   nav {
@@ -114,7 +119,6 @@
     background: var(--gold); transition: width .3s;
   }
   .nav-links a:hover { color: var(--gold); }
-  .nav-links a:hover::after { width: 100%; }
 
   /* ── HERO ── */
   #home {
@@ -349,7 +353,7 @@
   }
 
   /* ── PROJECTS ── */
-  #projects { background: #000000; } /* Background set to Black as requested */
+  #projects { background: #000000; } /* Pure black background as requested */
 
   /* ── PROJECTS SPLIT LAYOUT ── */
   .projects-split {
@@ -370,7 +374,6 @@
     width: 100%; display: block;
     object-fit: cover; object-position: center top;
     aspect-ratio: 3/4;
-    /* Borders removed to blend black image img2.jpg with section */
   }
 
   /* RIGHT: projects list column */
@@ -439,6 +442,12 @@
     .projects-split { grid-template-columns: 1fr; gap: 40px; }
     .projects-image-col { position: static; }
     .projects-main-img { aspect-ratio: 4/3; }
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .hero-photo-wrap { display: block; margin: 40px auto 0; width: 280px; height: 330px; }
+    .hero-tag { justify-content: center; }
+    .hero-tag::before { display: none; }
+    .hero-stats { justify-content: center; }
+    .hero-btns { justify-content: center; }
   }
 
   /* ── SKILLS ── */
@@ -555,22 +564,6 @@
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--black); }
   ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; text-align: center; }
-    /* Mobile Optimization: Image 1 visible below text */
-    .hero-photo-wrap { display: block; margin: 40px auto 0; width: 280px; height: 330px; }
-    .hero-tag { justify-content: center; }
-    .hero-tag::before { display: none; }
-    .hero-headline { margin-left: auto; margin-right: auto; }
-    .hero-stats { justify-content: center; }
-    .hero-btns { justify-content: center; }
-    
-    .about-grid { grid-template-columns: 1fr; gap: 50px; }
-    .skills-categories { grid-template-columns: 1fr; }
-    nav .nav-links { display: none; }
-  }
 </style>
 </head>
 <body>
@@ -594,7 +587,7 @@
   </ul>
 </nav>
 
-<!-- HERO (HOME) -->
+<!-- HERO -->
 <section id="home">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
@@ -630,7 +623,6 @@
     <div class="hero-photo-wrap">
       <div class="hero-photo-glow"></div>
       <div class="hero-photo-frame"></div>
-      <!-- Primary Profile Image -->
       <img src="img1.jpg" alt="Sahan D Jayasingha" class="hero-photo" onerror="this.src='https://via.placeholder.com/320x380/111/c9a84c?text=img1.jpg'"/>
       <div class="hero-photo-corner hpc-tl"></div>
       <div class="hero-photo-corner hpc-tr"></div>
@@ -649,12 +641,14 @@
       <div class="about-text reveal">
         <p>I am a <strong>21-year-old AI Engineering undergraduate</strong> at NSBM Green University (affiliated with the University of Plymouth), based in Homagama, Sri Lanka. I have a strong passion for software innovation and full-stack development.</p>
         <p>As the founder of <strong>E-Student Develop (ESD)</strong>, I focus on building digital platforms and mobile applications that empower the next generation of students. My technical toolkit — spanning HTML, CSS, Java, C, Python, and Dart — allows me to build robust, scalable web and mobile solutions.</p>
-        <p>With a professional background as a <strong>Graphic Designer (Design Master)</strong>, I bridge the gap between technical functionality and creative design.</p>
+        <p>With a professional background as a <strong>Graphic Designer (Design Master)</strong>, I bridge the gap between technical functionality and creative design to build user-centric applications that are both powerful and visually engaging.</p>
         <div class="about-tags">
           <span class="tag">AI Engineering</span>
           <span class="tag">Full-Stack Dev</span>
           <span class="tag">Graphic Design</span>
           <span class="tag">ESD Founder</span>
+          <span class="tag">Flutter</span>
+          <span class="tag">React</span>
         </div>
       </div>
       <div class="edu-timeline">
@@ -689,52 +683,45 @@
     <div class="section-label">02 — Work</div>
     <h2 class="section-title">Key <span>Projects</span></h2>
     <div class="projects-split">
-      <!-- LEFT: Sticky Image for Projects -->
       <div class="projects-image-col">
         <div class="projects-img-frame">
-          <!-- Background of section is #000, so black image blends naturally -->
           <img src="img2.jpg" alt="Work Showcase" class="projects-main-img" onerror="this.src='https://via.placeholder.com/380x500/000/000?text=img2.jpg'"/>
         </div>
       </div>
-
-      <!-- RIGHT: Project Details -->
       <div class="projects-list-col">
         <div class="proj-item reveal">
           <div class="proj-item-left"><div class="proj-num">01</div></div>
           <div class="proj-item-right">
             <div class="proj-year-tag">2026</div>
             <div class="proj-title">ESD Note Mobile Application</div>
-            <p class="proj-desc">A mobile application designed for student productivity and educational resource management.</p>
+            <p class="proj-desc">A mobile application designed for student productivity and educational resource management. Built to empower students with intuitive note-taking and learning tools.</p>
             <div class="proj-tags"><span>Flutter</span><span>Dart</span><span>Mobile</span></div>
           </div>
         </div>
-
         <div class="proj-item reveal">
           <div class="proj-item-left"><div class="proj-num">02</div></div>
           <div class="proj-item-right">
             <div class="proj-year-tag">2024</div>
             <div class="proj-title">ESD Official Website</div>
-            <p class="proj-desc">The central digital hub for E-Student Develop, showcasing educational services.</p>
+            <p class="proj-desc">The central digital hub for E-Student Develop, showcasing educational services and tools. A full-featured web presence built with modern frontend technologies.</p>
             <div class="proj-tags"><span>React</span><span>HTML/CSS</span><span>Elementor</span></div>
           </div>
         </div>
-
         <div class="proj-item reveal">
           <div class="proj-item-left"><div class="proj-num">03</div></div>
           <div class="proj-item-right">
             <div class="proj-year-tag">2025</div>
             <div class="proj-title">ESD Note Web Platform</div>
-            <p class="proj-desc">A web-based extension of the ESD Note ecosystem for cross-platform accessibility.</p>
+            <p class="proj-desc">A web-based extension of the ESD Note ecosystem for cross-platform accessibility. Seamlessly bridges mobile and desktop learning experiences.</p>
             <div class="proj-tags"><span>React</span><span>JavaScript</span><span>Web</span></div>
           </div>
         </div>
-
         <div class="proj-item reveal">
           <div class="proj-item-left"><div class="proj-num">04</div></div>
           <div class="proj-item-right">
             <div class="proj-year-tag">2024</div>
             <div class="proj-title">Custom Flutter Camera App (pro_cam)</div>
-            <p class="proj-desc">A functional camera application built in Flutter with custom filters and gallery integration.</p>
+            <p class="proj-desc">A functional camera application built in Flutter with custom filters, gallery integration, and advanced capture controls.</p>
             <div class="proj-tags"><span>Flutter</span><span>Dart</span><span>Camera API</span></div>
           </div>
         </div>
@@ -754,16 +741,80 @@
         <div class="skill-item"><div class="skill-header"><span class="skill-name">React</span><span class="skill-pct">100%</span></div><div class="skill-bar"><div class="skill-fill" data-w="100"></div></div></div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">HTML / CSS</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">QA Testing</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">JavaScript</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">C#</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Python</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Dart</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" data-w="70"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Java</span><span class="skill-pct">60%</span></div><div class="skill-bar"><div class="skill-fill" data-w="60"></div></div></div>
       </div>
       <div class="skill-cat">
         <div class="skill-cat-title">Marketing &amp; AI</div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">Email Marketing</span><span class="skill-pct">100%</span></div><div class="skill-bar"><div class="skill-fill" data-w="100"></div></div></div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">ChatGPT &amp; AI Tools</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" data-w="95"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Social Media Mgmt</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill" data-w="92"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">SEO / SEM</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Google Analytics</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
       </div>
       <div class="skill-cat">
         <div class="skill-cat-title">Design &amp; Creative</div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">Canva &amp; Canva AI</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" data-w="95"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">MidJourney</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-w="88"></div></div></div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">Brand Design</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Figma</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Adobe Photoshop</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" data-w="75"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-inner">
+    <div class="section-label">04 — Arsenal</div>
+    <h2 class="section-title">Technologies &amp; <span>Tools</span></h2>
+    <div class="tools-group reveal">
+      <div class="tools-group-label">Frameworks &amp; Libraries</div>
+      <div class="tools-pills">
+        <span class="tool-pill">React</span>
+        <span class="tool-pill">Tailwind CSS</span>
+        <span class="tool-pill">Elementor</span>
+        <span class="tool-pill">Flutter</span>
+      </div>
+    </div>
+    <div class="tools-group reveal">
+      <div class="tools-group-label">Development Tools</div>
+      <div class="tools-pills">
+        <span class="tool-pill">Android Studio</span>
+        <span class="tool-pill">VS Code</span>
+        <span class="tool-pill">Git</span>
+        <span class="tool-pill">WordPress</span>
+      </div>
+    </div>
+    <div class="tools-group reveal">
+      <div class="tools-group-label">AI &amp; Productivity</div>
+      <div class="tools-pills">
+        <span class="tool-pill">ChatGPT</span>
+        <span class="tool-pill">Claude</span>
+        <span class="tool-pill">MidJourney</span>
+        <span class="tool-pill">Notion</span>
+        <span class="tool-pill">Trello</span>
+        <span class="tool-pill">Jira</span>
+        <span class="tool-pill">Slack</span>
+      </div>
+    </div>
+    <div class="tools-group reveal">
+      <div class="tools-group-label">Design Tools</div>
+      <div class="tools-pills">
+        <span class="tool-pill">Figma</span>
+        <span class="tool-pill">Adobe Photoshop</span>
+        <span class="tool-pill">Canva AI</span>
+      </div>
+    </div>
+    <div class="tools-group reveal">
+      <div class="tools-group-label">Marketing &amp; Analysis</div>
+      <div class="tools-pills">
+        <span class="tool-pill">Google Analytics</span>
+        <span class="tool-pill">Mailchimp</span>
       </div>
     </div>
   </div>
@@ -772,8 +823,9 @@
 <!-- CONNECT -->
 <section id="connect">
   <div class="section-inner">
-    <div class="section-label" style="justify-content:center;">04 — Contact</div>
+    <div class="section-label" style="justify-content:center;">05 — Contact</div>
     <h2 class="section-title" style="text-align:center;">Connect With <span>Me</span></h2>
+    <p class="connect-tagline">Let's collaborate on something extraordinary.</p>
     <div class="social-links reveal">
       <a href="https://www.linkedin.com/in/sahan-darshana-226bb4333/" target="_blank" class="social-link">💼 LinkedIn</a>
       <a href="https://github.com/sahandjayasingha" target="_blank" class="social-link">⚙️ GitHub</a>
@@ -790,56 +842,63 @@
 </footer>
 
 <script>
-// ── PRELOADER TYPE ANIMATION
-const nameText = "Sahan D Jayasingha";
+// ── PRELOADER TYPE ANIMATION (UPDATED FOR 3 LINES)
+const lines = ["Sahan", "D", "Jayasingha"];
 const goldChar = "D";
 const container = document.getElementById('preloaderText');
 let charDelay = 0;
-for(let i=0; i<nameText.length; i++){
-  const s = document.createElement('span');
-  s.className = 'char' + (nameText[i]===goldChar ? ' gold' : '');
-  s.textContent = nameText[i]==' ' ? '\u00A0' : nameText[i];
-  s.style.animationDelay = charDelay+'ms';
-  container.appendChild(s);
-  charDelay += nameText[i]==' ' ? 60 : 80;
-}
-setTimeout(()=>{
+
+lines.forEach((lineText, idx) => {
+  const lineDiv = document.createElement('div');
+  for(let char of lineText) {
+    const s = document.createElement('span');
+    s.className = 'char' + (char === goldChar ? ' gold' : '');
+    s.textContent = char === ' ' ? '\u00A0' : char;
+    s.style.animationDelay = charDelay + 'ms';
+    lineDiv.appendChild(s);
+    charDelay += 80;
+  }
+  container.appendChild(lineDiv);
+  charDelay += 100; // Pause between lines
+});
+
+setTimeout(() => {
   document.getElementById('preloader').classList.add('hidden');
-}, 3500);
+}, charDelay + 1000);
 
 // ── SCROLL REVEAL
 const revealEls = document.querySelectorAll('.reveal, .edu-item, .proj-item');
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach((e,i)=>{
-    if(e.isIntersecting){
-      setTimeout(()=>e.target.classList.add('visible'), i*80);
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if(e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
     }
   });
-},{threshold:.15});
-revealEls.forEach(el=>io.observe(el));
+}, {threshold: .15});
+revealEls.forEach(el => io.observe(el));
 
 // ── SKILL BARS
 const bars = document.querySelectorAll('.skill-fill');
-const barObs = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
       e.target.style.width = e.target.dataset.w + '%';
       barObs.unobserve(e.target);
     }
   });
-},{threshold:.3});
-bars.forEach(b=>barObs.observe(b));
+}, {threshold: .3});
+bars.forEach(b => barObs.observe(b));
 
 // ── ACTIVE NAV HIGHLIGHT
-const sections = document.querySelectorAll('section[id]');
+const sections = document.querySelectorAll('section[id], #home');
 const navLinks = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll',()=>{
-  let current='';
-  sections.forEach(s=>{
-    if(window.scrollY>=s.offsetTop-160) current=s.id;
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if(window.scrollY >= s.offsetTop - 160) current = s.id;
   });
-  navLinks.forEach(a=>{
-    a.style.color = a.getAttribute('href')==='#'+current ? 'var(--gold)' : '';
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
   });
 });
 </script>
