@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -32,6 +33,7 @@
     color: var(--white);
     font-family: var(--font-body);
     overflow-x: hidden;
+    /* Cursor: none removed to restore default system cursor */
   }
 
   /* ── PRELOADER ── */
@@ -45,20 +47,12 @@
 
   .preloader-text {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 8vw, 4.5rem); /* Adjusted for 3 lines */
+    font-size: clamp(2rem, 6vw, 4.5rem);
     letter-spacing: .12em;
     color: var(--white);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .preloader-text div {
     overflow: hidden;
     white-space: nowrap;
   }
-
   .preloader-text .char {
     display: inline-block;
     opacity: 0;
@@ -76,9 +70,9 @@
     background: linear-gradient(90deg, transparent, var(--gold), var(--red), transparent);
     margin-top: 24px;
     animation: lineExpand 1s ease forwards;
-    animation-delay: 2.5s;
+    animation-delay: 2.2s;
   }
-  @keyframes lineExpand { to { width: min(420px, 80vw); } }
+  @keyframes lineExpand { to { width: 420px; } }
 
   /* ── NAV ── */
   nav {
@@ -118,6 +112,7 @@
     background: var(--gold); transition: width .3s;
   }
   .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { width: 100%; }
 
   /* ── HERO ── */
   #home {
@@ -352,7 +347,7 @@
   }
 
   /* ── PROJECTS ── */
-  #projects { background: #000000; } /* Pure black background as requested */
+  #projects { background: var(--black); }
 
   /* ── PROJECTS SPLIT LAYOUT ── */
   .projects-split {
@@ -368,6 +363,7 @@
   .projects-img-frame {
     position: relative;
     overflow: hidden;
+    /* Removed border and background so img2.jpg blends as it is black */
   }
   .projects-main-img {
     width: 100%; display: block;
@@ -441,12 +437,6 @@
     .projects-split { grid-template-columns: 1fr; gap: 40px; }
     .projects-image-col { position: static; }
     .projects-main-img { aspect-ratio: 4/3; }
-    .hero-inner { grid-template-columns: 1fr; text-align: center; }
-    .hero-photo-wrap { display: block; margin: 40px auto 0; width: 280px; height: 330px; }
-    .hero-tag { justify-content: center; }
-    .hero-tag::before { display: none; }
-    .hero-stats { justify-content: center; }
-    .hero-btns { justify-content: center; }
   }
 
   /* ── SKILLS ── */
@@ -563,6 +553,22 @@
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--black); }
   ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    /* Optimization: Restore visibility on mobile and center the image below text */
+    .hero-photo-wrap { display: block; margin: 40px auto 0; width: 280px; height: 330px; }
+    .hero-tag { justify-content: center; }
+    .hero-tag::before { display: none; }
+    .hero-headline { margin-left: auto; margin-right: auto; }
+    .hero-stats { justify-content: center; }
+    .hero-btns { justify-content: center; }
+    
+    .about-grid { grid-template-columns: 1fr; gap: 50px; }
+    .skills-categories { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -586,7 +592,7 @@
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- HERO (HOME) -->
 <section id="home">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
@@ -682,11 +688,15 @@
     <div class="section-label">02 — Work</div>
     <h2 class="section-title">Key <span>Projects</span></h2>
     <div class="projects-split">
+      <!-- LEFT: Sticky Image for Projects -->
       <div class="projects-image-col">
         <div class="projects-img-frame">
+          <!-- BORDERS REMOVED TO BLEND BLACK IMAGE img2.jpg -->
           <img src="img2.jpg" alt="Work Showcase" class="projects-main-img" onerror="this.src='https://via.placeholder.com/380x500/000/000?text=img2.jpg'"/>
         </div>
       </div>
+
+      <!-- RIGHT: Project Details -->
       <div class="projects-list-col">
         <div class="proj-item reveal">
           <div class="proj-item-left"><div class="proj-num">01</div></div>
@@ -697,6 +707,7 @@
             <div class="proj-tags"><span>Flutter</span><span>Dart</span><span>Mobile</span></div>
           </div>
         </div>
+
         <div class="proj-item reveal">
           <div class="proj-item-left"><div class="proj-num">02</div></div>
           <div class="proj-item-right">
@@ -706,6 +717,7 @@
             <div class="proj-tags"><span>React</span><span>HTML/CSS</span><span>Elementor</span></div>
           </div>
         </div>
+
         <div class="proj-item reveal">
           <div class="proj-item-left"><div class="proj-num">03</div></div>
           <div class="proj-item-right">
@@ -715,6 +727,7 @@
             <div class="proj-tags"><span>React</span><span>JavaScript</span><span>Web</span></div>
           </div>
         </div>
+
         <div class="proj-item reveal">
           <div class="proj-item-left"><div class="proj-num">04</div></div>
           <div class="proj-item-right">
@@ -746,6 +759,7 @@
         <div class="skill-item"><div class="skill-header"><span class="skill-name">Dart</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" data-w="70"></div></div></div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">Java</span><span class="skill-pct">60%</span></div><div class="skill-bar"><div class="skill-fill" data-w="60"></div></div></div>
       </div>
+
       <div class="skill-cat">
         <div class="skill-cat-title">Marketing &amp; AI</div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">Email Marketing</span><span class="skill-pct">100%</span></div><div class="skill-bar"><div class="skill-fill" data-w="100"></div></div></div>
@@ -754,6 +768,7 @@
         <div class="skill-item"><div class="skill-header"><span class="skill-name">SEO / SEM</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">Google Analytics</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
       </div>
+
       <div class="skill-cat">
         <div class="skill-cat-title">Design &amp; Creative</div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">Canva &amp; Canva AI</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" data-w="95"></div></div></div>
@@ -841,63 +856,56 @@
 </footer>
 
 <script>
-// ── PRELOADER TYPE ANIMATION (UPDATED FOR 3 LINES)
-const lines = ["Sahan", "D", "Jayasingha"];
+// ── PRELOADER TYPE ANIMATION
+const nameText = "Sahan D Jayasingha";
 const goldChar = "D";
 const container = document.getElementById('preloaderText');
 let charDelay = 0;
-
-lines.forEach((lineText, idx) => {
-  const lineDiv = document.createElement('div');
-  for(let char of lineText) {
-    const s = document.createElement('span');
-    s.className = 'char' + (char === goldChar ? ' gold' : '');
-    s.textContent = char === ' ' ? '\u00A0' : char;
-    s.style.animationDelay = charDelay + 'ms';
-    lineDiv.appendChild(s);
-    charDelay += 80;
-  }
-  container.appendChild(lineDiv);
-  charDelay += 100; // Pause between lines
-});
-
-setTimeout(() => {
+for(let i=0; i<nameText.length; i++){
+  const s = document.createElement('span');
+  s.className = 'char' + (nameText[i]===goldChar ? ' gold' : '');
+  s.textContent = nameText[i]==' ' ? '\u00A0' : nameText[i];
+  s.style.animationDelay = charDelay+'ms';
+  container.appendChild(s);
+  charDelay += nameText[i]==' ' ? 60 : 80;
+}
+setTimeout(()=>{
   document.getElementById('preloader').classList.add('hidden');
-}, charDelay + 1000);
+}, 3100);
 
 // ── SCROLL REVEAL
 const revealEls = document.querySelectorAll('.reveal, .edu-item, .proj-item');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if(e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), i * 80);
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'), i*80);
     }
   });
-}, {threshold: .15});
-revealEls.forEach(el => io.observe(el));
+},{threshold:.15});
+revealEls.forEach(el=>io.observe(el));
 
 // ── SKILL BARS
 const bars = document.querySelectorAll('.skill-fill');
-const barObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if(e.isIntersecting) {
+const barObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
       e.target.style.width = e.target.dataset.w + '%';
       barObs.unobserve(e.target);
     }
   });
-}, {threshold: .3});
-bars.forEach(b => barObs.observe(b));
+},{threshold:.3});
+bars.forEach(b=>barObs.observe(b));
 
 // ── ACTIVE NAV HIGHLIGHT
-const sections = document.querySelectorAll('section[id], #home');
+const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    if(window.scrollY >= s.offsetTop - 160) current = s.id;
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{
+    if(window.scrollY>=s.offsetTop-160) current=s.id;
   });
-  navLinks.forEach(a => {
-    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+  navLinks.forEach(a=>{
+    a.style.color = a.getAttribute('href')==='#'+current ? 'var(--gold)' : '';
   });
 });
 </script>
