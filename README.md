@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -32,6 +33,7 @@
     color: var(--white);
     font-family: var(--font-body);
     overflow-x: hidden;
+    /* Cursor: none removed to restore default system cursor */
   }
 
   /* ── PRELOADER ── */
@@ -361,12 +363,12 @@
   .projects-img-frame {
     position: relative;
     overflow: hidden;
+    /* Removed border and background so img2.jpg blends as it is black */
   }
   .projects-main-img {
     width: 100%; display: block;
     object-fit: cover; object-position: center top;
     aspect-ratio: 3/4;
-    /* Removed filters and frames to blend as requested */
   }
 
   /* RIGHT: projects list column */
@@ -554,8 +556,15 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-photo-wrap { display: none; }
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    /* Optimization: Restore visibility on mobile and center the image below text */
+    .hero-photo-wrap { display: block; margin: 40px auto 0; width: 280px; height: 330px; }
+    .hero-tag { justify-content: center; }
+    .hero-tag::before { display: none; }
+    .hero-headline { margin-left: auto; margin-right: auto; }
+    .hero-stats { justify-content: center; }
+    .hero-btns { justify-content: center; }
+    
     .about-grid { grid-template-columns: 1fr; gap: 50px; }
     .skills-categories { grid-template-columns: 1fr; }
     nav .nav-links { display: none; }
@@ -619,7 +628,7 @@
     <div class="hero-photo-wrap">
       <div class="hero-photo-glow"></div>
       <div class="hero-photo-frame"></div>
-      <img src="img1.jpg" alt="Sahan D Jayasingha" class="hero-photo" onerror="this.src='https://via.placeholder.com/320x380/111/c9a84c?text=img1.jpg+Missing'"/>
+      <img src="img1.jpg" alt="Sahan D Jayasingha" class="hero-photo" onerror="this.src='https://via.placeholder.com/320x380/111/c9a84c?text=img1.jpg'"/>
       <div class="hero-photo-corner hpc-tl"></div>
       <div class="hero-photo-corner hpc-tr"></div>
       <div class="hero-photo-corner hpc-bl"></div>
@@ -679,10 +688,11 @@
     <div class="section-label">02 — Work</div>
     <h2 class="section-title">Key <span>Projects</span></h2>
     <div class="projects-split">
-      <!-- LEFT: Sticky Image -->
+      <!-- LEFT: Sticky Image for Projects -->
       <div class="projects-image-col">
         <div class="projects-img-frame">
-          <img src="img2.jpg" alt="Work Showcase" class="projects-main-img" onerror="this.src='https://via.placeholder.com/380x500/000/c9a84c?text=img2.jpg+Missing'"/>
+          <!-- BORDERS REMOVED TO BLEND BLACK IMAGE img2.jpg -->
+          <img src="img2.jpg" alt="Work Showcase" class="projects-main-img" onerror="this.src='https://via.placeholder.com/380x500/000/000?text=img2.jpg'"/>
         </div>
       </div>
 
