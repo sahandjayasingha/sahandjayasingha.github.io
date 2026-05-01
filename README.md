@@ -33,7 +33,6 @@
     color: var(--white);
     font-family: var(--font-body);
     overflow-x: hidden;
-    /* Cursor: none removed */
   }
 
   /* ── PRELOADER ── */
@@ -126,8 +125,8 @@
   .nav-links a:hover { color: var(--gold); }
   .nav-links a:hover::after { width: 100%; }
 
-  /* ── HERO (Home Section) ── */
-  #home {
+  /* ── HERO ── */
+  #hero {
     min-height: 100vh;
     display: flex; align-items: center;
     padding: 100px 6% 60px;
@@ -245,6 +244,12 @@
     border: 1px solid var(--gold-dim);
     clip-path: polygon(20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 20px);
   }
+  .hero-photo-frame::before {
+    content: '';
+    position: absolute; inset: 6px;
+    border: 1px solid rgba(201,168,76,.2);
+    clip-path: polygon(14px 0%, 100% 0%, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0% 100%, 0% 14px);
+  }
   .hero-photo-glow {
     position: absolute; inset: -20px;
     background: radial-gradient(ellipse at center, rgba(201,168,76,.12) 0%, transparent 70%);
@@ -254,7 +259,6 @@
     width: 100%; height: 100%;
     object-fit: cover;
     clip-path: polygon(20px 0%, 100% 0%, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0% 100%, 0% 20px);
-    filter: contrast(1.05);
     display: block;
   }
   .hero-photo-corner {
@@ -310,6 +314,17 @@
   }
   .about-text p strong { color: var(--gold-light); font-weight: 500; }
 
+  .about-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .tag {
+    font-family: var(--font-tech); font-size: .58rem;
+    letter-spacing: .2em; text-transform: uppercase;
+    padding: 8px 18px;
+    border: 1px solid var(--border);
+    color: var(--white-dim);
+    transition: border-color .3s, color .3s;
+  }
+  .tag:hover { border-color: var(--gold); color: var(--gold); }
+
   /* Education Timeline */
   .edu-timeline { position: relative; padding-left: 24px; }
   .edu-timeline::before {
@@ -344,6 +359,7 @@
   /* ── PROJECTS ── */
   #projects { background: #000000; }
 
+  /* ── PROJECTS SPLIT LAYOUT ── */
   .projects-split {
     display: grid;
     grid-template-columns: 380px 1fr;
@@ -357,12 +373,11 @@
   .projects-img-frame {
     position: relative;
     overflow: hidden;
-    /* No border or frame here to blend with black background */
   }
   .projects-main-img {
     width: 100%; display: block;
-    object-fit: cover; object-position: center top;
-    aspect-ratio: 3/4;
+    object-fit: contain; object-position: center top;
+    border: none; background: transparent;
   }
 
   /* RIGHT: projects list column */
@@ -429,7 +444,6 @@
   @media (max-width: 900px) {
     .projects-split { grid-template-columns: 1fr; gap: 40px; }
     .projects-image-col { position: static; }
-    .projects-main-img { aspect-ratio: 4/3; }
   }
 
   /* ── SKILLS ── */
@@ -490,6 +504,7 @@
     transition: left .5s ease;
   }
   .tool-pill:hover { color: var(--gold); border-color: var(--gold-dim); }
+  .tool-pill:hover::before { left: 100%; }
 
   /* ── CONNECT ── */
   #connect { background: var(--deep); text-align: center; }
@@ -546,6 +561,7 @@
   ::-webkit-scrollbar-track { background: var(--black); }
   ::-webkit-scrollbar-thumb { background: var(--gold-dim); }
 
+  /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .hero-inner { grid-template-columns: 1fr; }
     .hero-photo-wrap { display: none; }
@@ -567,7 +583,6 @@
 <nav>
   <div class="nav-logo">Sahan <span>D</span> Jayasingha</div>
   <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -576,8 +591,8 @@
   </ul>
 </nav>
 
-<!-- HOME SECTION (HERO) -->
-<section id="home">
+<!-- HERO -->
+<section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-inner">
@@ -612,7 +627,7 @@
     <div class="hero-photo-wrap">
       <div class="hero-photo-glow"></div>
       <div class="hero-photo-frame"></div>
-      <img src="img1.jpg" alt="Sahan D Jayasingha" class="hero-photo" onerror="this.style.display='none'"/>
+      <img src="img1.jpg" alt="Sahan D Jayasingha" class="hero-photo"/>
       <div class="hero-photo-corner hpc-tl"></div>
       <div class="hero-photo-corner hpc-tr"></div>
       <div class="hero-photo-corner hpc-bl"></div>
@@ -629,8 +644,8 @@
     <div class="about-grid">
       <div class="about-text reveal">
         <p>I am a <strong>21-year-old AI Engineering undergraduate</strong> at NSBM Green University (affiliated with the University of Plymouth), based in Homagama, Sri Lanka. I have a strong passion for software innovation and full-stack development.</p>
-        <p>As the founder of <strong>E-Student Develop (ESD)</strong>, I focus on building digital platforms and mobile applications that empower the next generation of students. My technical toolkit includes HTML, CSS, Java, C, Python, and Dart.</p>
-        <p>With a professional background as a <strong>Graphic Designer (Design Master)</strong>, I bridge the gap between technical functionality and creative design to build user-centric applications.</p>
+        <p>As the founder of <strong>E-Student Develop (ESD)</strong>, I focus on building digital platforms and mobile applications that empower the next generation of students. My technical toolkit — spanning HTML, CSS, Java, C, Python, and Dart — allows me to build robust, scalable web and mobile solutions.</p>
+        <p>With a professional background as a <strong>Graphic Designer (Design Master)</strong>, I bridge the gap between technical functionality and creative design to build user-centric applications that are both powerful and visually engaging.</p>
         <div class="about-tags">
           <span class="tag">AI Engineering</span>
           <span class="tag">Full-Stack Dev</span>
@@ -650,6 +665,16 @@
           <div class="edu-degree">Diploma in English Language</div>
           <div class="edu-school">Institute of Vocational &amp; Technological Guidance</div>
           <div class="edu-year">2024 — 2025</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Diploma in ICT</div>
+          <div class="edu-school">Institute of Vocational &amp; Technological Guidance</div>
+          <div class="edu-year">2023 — 2024</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-degree">Diploma in Human Resource Management</div>
+          <div class="edu-school">Institute of Vocational &amp; Technological Guidance</div>
+          <div class="edu-year">2023 — 2024</div>
         </div>
         <div class="edu-item">
           <div class="edu-degree">Foundation in Information Technology</div>
@@ -676,51 +701,65 @@
   <div class="section-inner">
     <div class="section-label">02 — Work</div>
     <h2 class="section-title">Key <span>Projects</span></h2>
+    
     <div class="projects-split">
+      <!-- LEFT: Image column -->
       <div class="projects-image-col">
-        <div class="projects-img-frame">
-          <img src="img2.jpg" alt="Featured Work" class="projects-main-img" onerror="this.style.background='#000'"/>
-        </div>
+        <img src="img2.jpg" alt="Projects Overview" class="projects-main-img" />
       </div>
+
+      <!-- RIGHT: Projects list -->
       <div class="projects-list-col">
         <div class="proj-item reveal">
-          <div class="proj-item-left"><div class="proj-num">01</div></div>
+          <div class="proj-item-left">
+            <div class="proj-num">01</div>
+          </div>
           <div class="proj-item-right">
             <div class="proj-year-tag">2026</div>
             <div class="proj-title">ESD Note Mobile Application</div>
-            <p class="proj-desc">A mobile application designed for student productivity and educational resource management.</p>
+            <p class="proj-desc">A mobile application designed for student productivity and educational resource management. Built to empower students with intuitive note-taking and learning tools.</p>
             <div class="proj-tags"><span>Flutter</span><span>Dart</span><span>Mobile</span></div>
           </div>
         </div>
+
         <div class="proj-item reveal">
-          <div class="proj-item-left"><div class="proj-num">02</div></div>
+          <div class="proj-item-left">
+            <div class="proj-num">02</div>
+          </div>
           <div class="proj-item-right">
             <div class="proj-year-tag">2024</div>
             <div class="proj-title">ESD Official Website</div>
-            <p class="proj-desc">The central digital hub for E-Student Develop, showcasing educational services and tools.</p>
-            <div class="proj-tags"><span>React</span><span>Web</span></div>
+            <p class="proj-desc">The central digital hub for E-Student Develop, showcasing educational services and tools. A full-featured web presence built with modern frontend technologies.</p>
+            <div class="proj-tags"><span>React</span><span>HTML/CSS</span><span>Elementor</span></div>
           </div>
         </div>
+
         <div class="proj-item reveal">
-          <div class="proj-item-left"><div class="proj-num">03</div></div>
+          <div class="proj-item-left">
+            <div class="proj-num">03</div>
+          </div>
           <div class="proj-item-right">
             <div class="proj-year-tag">2025</div>
             <div class="proj-title">ESD Note Web Platform</div>
-            <p class="proj-desc">A web-based extension of the ESD Note ecosystem for cross-platform accessibility.</p>
-            <div class="proj-tags"><span>React</span><span>Web</span></div>
+            <p class="proj-desc">A web-based extension of the ESD Note ecosystem for cross-platform accessibility. Seamlessly bridges mobile and desktop learning experiences.</p>
+            <div class="proj-tags"><span>React</span><span>JavaScript</span><span>Web</span></div>
           </div>
         </div>
+
         <div class="proj-item reveal">
-          <div class="proj-item-left"><div class="proj-num">04</div></div>
+          <div class="proj-item-left">
+            <div class="proj-num">04</div>
+          </div>
           <div class="proj-item-right">
             <div class="proj-year-tag">2024</div>
             <div class="proj-title">Custom Flutter Camera App (pro_cam)</div>
-            <p class="proj-desc">A functional camera application built in Flutter with filters and gallery integration.</p>
-            <div class="proj-tags"><span>Flutter</span><span>Camera API</span></div>
+            <p class="proj-desc">A functional camera application built in Flutter with custom filters, gallery integration, and advanced capture controls. Showcases native mobile development expertise.</p>
+            <div class="proj-tags"><span>Flutter</span><span>Dart</span><span>Camera API</span></div>
           </div>
         </div>
-      </div>
-    </div>
+      </div><!-- end projects-list-col -->
+    </div><!-- end projects-split -->
+
   </div>
 </section>
 
@@ -730,21 +769,94 @@
     <div class="section-label">03 — Expertise</div>
     <h2 class="section-title">Technical <span>Skills</span></h2>
     <div class="skills-categories reveal">
+
       <div class="skill-cat">
-        <div class="skill-cat-title">Development</div>
+        <div class="skill-cat-title">Development &amp; QA</div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">React</span><span class="skill-pct">100%</span></div><div class="skill-bar"><div class="skill-fill" data-w="100"></div></div></div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">HTML / CSS</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">QA Testing</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">JavaScript</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">C#</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Python</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Dart</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" data-w="70"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Java</span><span class="skill-pct">60%</span></div><div class="skill-bar"><div class="skill-fill" data-w="60"></div></div></div>
       </div>
+
       <div class="skill-cat">
         <div class="skill-cat-title">Marketing &amp; AI</div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">Email Marketing</span><span class="skill-pct">100%</span></div><div class="skill-bar"><div class="skill-fill" data-w="100"></div></div></div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">ChatGPT &amp; AI Tools</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" data-w="95"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Social Media Mgmt</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill" data-w="92"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">SEO / SEM</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Google Analytics</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90"></div></div></div>
       </div>
+
       <div class="skill-cat">
-        <div class="skill-cat-title">Design</div>
+        <div class="skill-cat-title">Design &amp; Creative</div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">Canva &amp; Canva AI</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" data-w="95"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">MidJourney</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" data-w="88"></div></div></div>
         <div class="skill-item"><div class="skill-header"><span class="skill-name">Brand Design</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Figma</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80"></div></div></div>
+        <div class="skill-item"><div class="skill-header"><span class="skill-name">Adobe Photoshop</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" data-w="75"></div></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-inner">
+    <div class="section-label">04 — Arsenal</div>
+    <h2 class="section-title">Technologies &amp; <span>Tools</span></h2>
+
+    <div class="tools-group reveal">
+      <div class="tools-group-label">Frameworks &amp; Libraries</div>
+      <div class="tools-pills">
+        <span class="tool-pill">React</span>
+        <span class="tool-pill">Tailwind CSS</span>
+        <span class="tool-pill">Elementor</span>
+        <span class="tool-pill">Flutter</span>
+      </div>
+    </div>
+
+    <div class="tools-group reveal">
+      <div class="tools-group-label">Development Tools</div>
+      <div class="tools-pills">
+        <span class="tool-pill">Android Studio</span>
+        <span class="tool-pill">VS Code</span>
+        <span class="tool-pill">Git</span>
+        <span class="tool-pill">WordPress</span>
+      </div>
+    </div>
+
+    <div class="tools-group reveal">
+      <div class="tools-group-label">AI &amp; Productivity</div>
+      <div class="tools-pills">
+        <span class="tool-pill">ChatGPT</span>
+        <span class="tool-pill">Claude</span>
+        <span class="tool-pill">MidJourney</span>
+        <span class="tool-pill">Notion</span>
+        <span class="tool-pill">Trello</span>
+        <span class="tool-pill">Jira</span>
+        <span class="tool-pill">Slack</span>
+      </div>
+    </div>
+
+    <div class="tools-group reveal">
+      <div class="tools-group-label">Design Tools</div>
+      <div class="tools-pills">
+        <span class="tool-pill">Figma</span>
+        <span class="tool-pill">Adobe Photoshop</span>
+        <span class="tool-pill">Canva AI</span>
+      </div>
+    </div>
+
+    <div class="tools-group reveal">
+      <div class="tools-group-label">Marketing &amp; Analysis</div>
+      <div class="tools-pills">
+        <span class="tool-pill">Google Analytics</span>
+        <span class="tool-pill">Mailchimp</span>
       </div>
     </div>
   </div>
@@ -753,15 +865,27 @@
 <!-- CONNECT -->
 <section id="connect">
   <div class="section-inner">
-    <div class="section-label" style="justify-content:center;">04 — Contact</div>
+    <div class="section-label" style="justify-content:center;">05 — Contact</div>
     <h2 class="section-title" style="text-align:center;">Connect With <span>Me</span></h2>
+    <p class="connect-tagline">Let's collaborate on something extraordinary.</p>
     <div class="social-links reveal">
-      <a href="https://github.com/sahandjayasingha" target="_blank" class="social-link">GitHub</a>
-      <a href="https://www.linkedin.com/in/sahan-darshana-226bb4333/" target="_blank" class="social-link">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/sahan-darshana-226bb4333/" target="_blank" class="social-link">
+        <span class="social-icon">💼</span> LinkedIn
+      </a>
+      <a href="https://github.com/sahandjayasingha" target="_blank" class="social-link">
+        <span class="social-icon">⚙️</span> GitHub
+      </a>
+      <a href="https://www.facebook.com/sahan.darshana.707221" target="_blank" class="social-link">
+        <span class="social-icon">🔵</span> Facebook
+      </a>
+      <a href="https://www.instagram.com/sd_jayasingha" target="_blank" class="social-link">
+        <span class="social-icon">📸</span> Instagram
+      </a>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-name">Sahan <span>D</span> Jayasingha</div>
   <div class="footer-copy">© 2026 — All Rights Reserved</div>
@@ -773,6 +897,7 @@ const isMobile = window.innerWidth <= 600;
 const container = document.getElementById('preloaderText');
 
 if(isMobile){
+  // Mobile: 3 separate word spans — Sahan / D / Jayasingha
   const lines = [
     { text: 'Sahan', gold: false },
     { text: 'D',     gold: true  },
@@ -794,6 +919,7 @@ if(isMobile){
     totalDelay += 140;
   });
 } else {
+  // PC: single line "Sahan D Jayasingha"
   const nameText = "Sahan D Jayasingha";
   let charDelay = 0;
   for(let i = 0; i < nameText.length; i++){
@@ -810,7 +936,7 @@ setTimeout(()=>{
 }, 3200);
 
 // ── SCROLL REVEAL
-const revealEls = document.querySelectorAll('.reveal, .edu-item, .proj-item');
+const revealEls = document.querySelectorAll('.reveal, .edu-item, .project-card, .proj-item');
 const io = new IntersectionObserver((entries)=>{
   entries.forEach((e,i)=>{
     if(e.isIntersecting){
