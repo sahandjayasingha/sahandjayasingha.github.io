@@ -36,9 +36,7 @@
     cursor: none;
   }
 
-  /* ── CUSTOM CURSOR ── */
-  .cursor { position: fixed; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform .1s; }
-  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--gold-dim); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all .25s ease; }
+  
 
   /* ── PRELOADER ── */
   #preloader {
